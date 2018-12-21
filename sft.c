@@ -124,7 +124,7 @@ struct psc_listcache		 wkq;
 struct psc_poolmaster		 wk_poolmaster;
 struct psc_poolmgr		*wk_pool;
 struct pfl_opstat		*iostats;
-struct psc_waitq		 display_wq = PSC_WAITQ_INIT("display");
+struct pfl_waitq		 display_wq = PFL_WAITQ_INIT("display");
 volatile int			 running = 1;
 
 int				 incomplete = 0;
@@ -373,7 +373,7 @@ display(__unusedx struct psc_thread *thr)
 
 	while (running) {
 		ts.tv_sec += 1;
-		psc_waitq_waitabs(&display_wq, NULL, &ts);
+		pfl_waitq_waitabs(&display_wq, NULL, &ts);
 
 		if (istty)
 			fprintf(fp, "\r");
@@ -673,7 +673,7 @@ main(int argc, char *argv[])
 
 	if (displaybw) {
 		running = 0;
-		psc_waitq_wakeall(&display_wq);
+		pfl_waitq_wakeall(&display_wq);
 		pthread_join(dispthr->pscthr_pthread, NULL);
 	}
 	if (!verbose || incomplete)
