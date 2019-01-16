@@ -686,7 +686,7 @@ main(int argc, char *argv[])
 
 	/*
 	 * The following is an alternative way to calculate bandwidth.
-	 * Note that totalbytes is only valid when all I/Os are complete
+	 * Note that totalbytes is only valid when all I/Os complete
 	 * normally.
 	 *
 	 * If the read or write performance takes a long time to ramp up,
